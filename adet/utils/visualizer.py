@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from detectron2.utils.visualizer import Visualizer
 
 
@@ -344,6 +345,32 @@ class TextVisualizer(Visualizer):
             text_pos = polygon[0]
             horiz_align = "left"
             font_size = self._default_font_size
+
+            submission_path = '/content/drive/MyDrive/dict-guided/result/submission'
+            instances_path = '/content/drive/MyDrive/dict-guided/result/instances'
+
+            i = len(os.listdir(instances_path))
+            text_pos1 = polygon[0]
+            text_pos2 = polygon[1]
+            text_pos3 = polygon[2]
+            text_pos4 = polygon[3]
+            
+            with open(submission_path + '/' + f'gt_img_{i+1}.txt','a') as f:
+              # f.write(str(text_pos1[0]) +','+
+              #         str(text_pos1[1]) +','+
+
+              #         str(text_pos2[0]) +','+
+              #         str(text_pos2[1]) +','+
+
+              #         str(text_pos3[0]) +','+
+              #         str(text_pos3[1]) +','+
+
+              #         str(text_pos4[0]) +','+
+              #         str(text_pos4[1]) +','+
+
+              #         + text+ '\n')
+              f.write(str(text_pos))
+
 
             self.draw_text(
                 text,
