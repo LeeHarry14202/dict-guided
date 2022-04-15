@@ -79,6 +79,15 @@ if __name__ == "__main__":
         elif len(args.input) == 1:
             args.input = glob.glob(os.path.expanduser(args.input[0]))
             assert args.input, "The input path(s) was not found"
+        
+        # Empty instances and submission
+        img_number = 1
+        instances_path = '/content/drive/MyDrive/dict-guided/result/instances'
+        submission_path = '/content/drive/MyDrive/dict-guided/result/submission'
+        for file in os.listdir(instances_path):
+          os.remove(instances_path +'/'+ file)
+        for file in os.listdir(submission_path):
+          os.remove(submission_path +'/'+ file)
         for path in tqdm.tqdm(args.input, disable=not args.output):
             # use PIL, to be consistent with evaluation
             img = read_image(path, format="BGR")
@@ -89,6 +98,10 @@ if __name__ == "__main__":
                     path, len(predictions["instances"]), time.time() - start_time
                 )
             )
+            
+            with open(instances_path + '/'+f'gt_img_{img_number}.txt', 'w') as f:
+                f.write(str(len(predictions["instances"])))
+            img_number +=1
 
             if args.output:
                 if os.path.isdir(args.output):
