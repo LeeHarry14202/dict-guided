@@ -349,28 +349,22 @@ class TextVisualizer(Visualizer):
             submission_path = '/content/drive/MyDrive/dict-guided/result/submission'
             instances_path = '/content/drive/MyDrive/dict-guided/result/instances'
 
-            i = len(os.listdir(instances_path))
-            text_pos1 = polygon[0]
-            text_pos2 = polygon[1]
-            text_pos3 = polygon[2]
-            text_pos4 = polygon[3]
+            num = len(os.listdir(instances_path))
+
+            x1 = str(int(polygon[0][0]))
+            y1 = str(int(polygon[0][1]))
+
+            x2 = str(int(polygon[1][0]))
+            y2 = str(int(polygon[1][1]))
+
+            x3 = str(int(polygon[2][0]))
+            y3 = str(int(polygon[2][1]))
             
-            with open(submission_path + '/' + f'gt_img_{i+1}.txt','a') as f:
-              # f.write(str(text_pos1[0]) +','+
-              #         str(text_pos1[1]) +','+
+            x4 = str(int(polygon[3][0]))
+            y4 = str(int(polygon[3][1]))
 
-              #         str(text_pos2[0]) +','+
-              #         str(text_pos2[1]) +','+
-
-              #         str(text_pos3[0]) +','+
-              #         str(text_pos3[1]) +','+
-
-              #         str(text_pos4[0]) +','+
-              #         str(text_pos4[1]) +','+
-
-              #         + text+ '\n')
-              f.write(str(text_pos))
-
+            with open(submission_path + '/' + f'res_img_{num+1}.txt','a') as f:
+                f.write(f'{x1},{y1},{x2},{y2},{x3},{y3},{x4},{y4},{text}\n')
 
             self.draw_text(
                 text,
