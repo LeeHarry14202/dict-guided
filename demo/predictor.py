@@ -35,7 +35,7 @@ class VisualizationDemo(object):
         else:
             self.predictor = DefaultPredictor(cfg)
 
-    def run_on_image(self, image):
+    def run_on_image(self, image,path):
         """
         Args:
             image (np.ndarray): an image of shape (H, W, C) (in BGR order).
@@ -64,7 +64,7 @@ class VisualizationDemo(object):
                 vis_output = visualizer.draw_sem_seg(predictions["sem_seg"].argmax(dim=0).to(self.cpu_device))
             if "instances" in predictions:
                 instances = predictions["instances"].to(self.cpu_device)
-                vis_output = visualizer.draw_instance_predictions(predictions=instances)
+                vis_output = visualizer.draw_instance_predictions(path,predictions=instances)
 
         return predictions, vis_output
 

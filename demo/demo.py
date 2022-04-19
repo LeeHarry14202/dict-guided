@@ -81,27 +81,29 @@ if __name__ == "__main__":
             assert args.input, "The input path(s) was not found"
         
         # Empty instances and submission
-        img_number = 1
         instances_path = '/content/drive/MyDrive/dict-guided/result/instances'
         submission_path = '/content/drive/MyDrive/dict-guided/result/submission'
-        for file in os.listdir(instances_path):
-          os.remove(instances_path +'/'+ file)
-        for file in os.listdir(submission_path):
-          os.remove(submission_path +'/'+ file)
+        # for file in os.listdir(instances_path):
+        #   os.remove(instances_path +'/'+ file)
+        # for file in os.listdir(submission_path):
+        #   os.remove(submission_path +'/'+ file)
         for path in tqdm.tqdm(args.input, disable=not args.output):
             # use PIL, to be consistent with evaluation
             img = read_image(path, format="BGR")
             start_time = time.time()
-            predictions, visualized_output = demo.run_on_image(img)
+            predictions, visualized_output = demo.run_on_image(img,path)
             logger.info(
                 "{}: detected {} instances in {:.2f}s".format(
                     path, len(predictions["instances"]), time.time() - start_time
                 )
             )
-            
-            with open(instances_path + '/'+f'gt_img_{img_number+500}.txt', 'w') as f:
-                f.write(str(len(predictions["instances"])))
-            img_number +=1
+            num = ''
+            for character in path:
+              if character.isdigit():
+                num += character
+
+            with open(instances_path + '/'+f'gt_img_{num}.txt', 'w') as f:
+              f.write(str(len(predictions["instances"])))
 
             if args.output:
                 if os.path.isdir(args.output):
@@ -162,3 +164,4 @@ if __name__ == "__main__":
             output_file.release()
         else:
             cv2.destroyAllWindows()
+
