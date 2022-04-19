@@ -62,12 +62,12 @@ def decoder(recognition):
 
 
 class TextVisualizer(Visualizer):
-    def draw_instance_predictions(self, predictions):
+    def draw_instance_predictions(self, path,predictions):
         beziers = predictions.beziers.numpy()
         scores = predictions.scores.tolist()
         recs = predictions.recs
 
-        self.overlay_instances(beziers, recs, scores)
+        self.overlay_instances(beziers, recs, scores,path)
 
         return self.output
 
@@ -329,7 +329,7 @@ class TextVisualizer(Visualizer):
                 last_char = False
         return decoder(s)
 
-    def overlay_instances(self, beziers, recs, scores, alpha=0.5):
+    def overlay_instances(self, beziers, recs, scores,path, alpha=0.5):
         color = (0.1, 0.2, 0.5)
         # color = 'green'
 
@@ -349,7 +349,6 @@ class TextVisualizer(Visualizer):
             submission_path = '/content/drive/MyDrive/dict-guided/result/submission'
             instances_path = '/content/drive/MyDrive/dict-guided/result/instances'
 
-            num = len(os.listdir(instances_path))
 
             x1 = str(int(polygon[0][0]))
             y1 = str(int(polygon[0][1]))
@@ -363,7 +362,17 @@ class TextVisualizer(Visualizer):
             x4 = str(int(polygon[3][0]))
             y4 = str(int(polygon[3][1]))
 
-            with open(submission_path + '/' + f'res_img_{num+1}.txt','a') as f:
+            num = ''
+            for character in path:
+              if character.isdigit():
+                num += character
+            
+            submission_dir = submission_path + '/' + f'res_img_{num}.txt'
+            if os.path.exists(submission_dir):
+              with open(submission_dir,'a') as f:
+                f.write(f'{x1},{y1},{x2},{y2},{x3},{y3},{x4},{y4},{text}\n')
+            else:
+              with open(submission_dir,'w') as f:
                 f.write(f'{x1},{y1},{x2},{y2},{x3},{y3},{x4},{y4},{text}\n')
 
             self.draw_text(
