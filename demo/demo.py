@@ -99,7 +99,7 @@ if __name__ == "__main__":
                 )
             )
             
-            with open(instances_path + '/'+f'gt_img_{img_number}.txt', 'w') as f:
+            with open(instances_path + '/'+f'gt_img_{img_number+500}.txt', 'w') as f:
                 f.write(str(len(predictions["instances"])))
             img_number +=1
 
