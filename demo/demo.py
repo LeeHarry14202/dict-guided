@@ -102,8 +102,14 @@ if __name__ == "__main__":
               if character.isdigit():
                 num += character
 
+            submission_dir = submission_path + '/' + f'res_img_{num}.txt'
             with open(instances_path + '/'+f'gt_img_{num}.txt', 'w') as f:
               f.write(str(len(predictions["instances"])))
+              # Fill img have no instances with blank text
+              if len(predictions["instances"]) == 0:
+                with open(submission_dir,'w') as f:
+                  f.write('')
+
 
             if args.output:
                 if os.path.isdir(args.output):
