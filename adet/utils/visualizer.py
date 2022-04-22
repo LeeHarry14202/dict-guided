@@ -353,14 +353,14 @@ class TextVisualizer(Visualizer):
             x1 = str(int(polygon[0][0]))
             y1 = str(int(polygon[0][1]))
 
-            x2 = str(int(polygon[1][0]))
-            y2 = str(int(polygon[1][1]))
+            x2 = str(int(polygon[19][0]))
+            y2 = str(int(polygon[19][1]))
 
-            x3 = str(int(polygon[2][0]))
-            y3 = str(int(polygon[2][1]))
+            x3 = str(int(polygon[20][0]))
+            y3 = str(int(polygon[20][1]))
             
-            x4 = str(int(polygon[3][0]))
-            y4 = str(int(polygon[3][1]))
+            x4 = str(int(polygon[39][0]))
+            y4 = str(int(polygon[39][1]))
 
             num = ''
             for character in path:
