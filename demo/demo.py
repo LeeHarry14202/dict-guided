@@ -83,10 +83,10 @@ if __name__ == "__main__":
         # Empty instances and submission
         instances_path = '/content/drive/MyDrive/dict-guided/result/instances'
         submission_path = '/content/drive/MyDrive/dict-guided/result/submission'
-        # for file in os.listdir(instances_path):
-        #   os.remove(instances_path +'/'+ file)
-        # for file in os.listdir(submission_path):
-        #   os.remove(submission_path +'/'+ file)
+        for file in os.listdir(instances_path):
+          os.remove(instances_path +'/'+ file)
+        for file in os.listdir(submission_path):
+          os.remove(submission_path +'/'+ file)
         for path in tqdm.tqdm(args.input, disable=not args.output):
             # use PIL, to be consistent with evaluation
             img = read_image(path, format="BGR")
